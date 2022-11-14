@@ -1,0 +1,93 @@
+LAB2
+
+sen/recv data
+concurent servers
+	processes
+		multiprocess.Process
+	threads
+		std::thread
+		threading.Thread
+select
+	monitor several sockets
+	-accept blocking
+	-recv blocking
+	-select(list of sockets) -> list of sockets that ready to read
+
+broadcast
+	->UDP
+	!!!setsocketopt(sock,Sal_socket,So_Broadcast,&broad)
+	sock.setsockopt(
+		socket.soc_Socket,
+		socket.set_broadcasr)
+
+v1: bind(ip_address,udp_port))
+v2: udp_s.sendto(('192.164.190.32',8011),'dummy');
+
+
+Lab3
+Problem3
+server                                                             
+-tcp
+def send_list(sock):
+	str = 'p0,udport0;p1,udpport1'
+	sock.send(str.encode())
+
+def send_all():
+	global clients
+	for client in client
+
+
+
+
+	rdv = socket.socket(...)
+	rdv.bin(('0.0.0.0',pst))
+	rdv.listen(5) only TCP
+	read_list = [rdv]
+	while TRue:
+		ready,_,_ = select.select(readList,[],[])
+		for s in ready:
+			if s is rdv:
+				cs, addi = s.accept()
+				p = cs.recv(4)
+				p = struct.unpatch("!T",p)
+				clients[cs] = p
+			else:
+				try:
+					cs.recv(100)
+					clients.pop(cs)
+
+
+client:
+-3 threads for every operation
+# talk to the server
+s= socket(Af..)
+s.connect((server_p,port))
+st = threading.Thread(serverTalk, sys=(s,))
+
+
+udps = socket(AF_INET, SOCK_DORAM)
+udps.sendto(b"2",('192.0.1.2',1234)
+
+p = udp.getsockname()
+udp_sock.bind('0.0.0.0',p)
+
+#Thread 3
+ct = trading.Thread(clientTalk,asp = ...)
+while TRue:
+	udp_sock.recvFrom
+	print(...)
+
+
+while True:
+	msg = input()
+	#send it to all clients
+	for c in clients:
+		send B
+					
+
+# for st:
+serverTalk(ss)
+client = ss.recv(1024).decode()
+#parse the list and clear the clients
+
+
