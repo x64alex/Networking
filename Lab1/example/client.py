@@ -21,6 +21,7 @@ if __name__ == '__main__':
     # pack the value as a short int (16 bits) in network representation
     s.send(struct.pack("!H", a))
     s.send(struct.pack('!H', b))
+    print(struct.calcsize(struct.pack("!H")))
     c = s.recv(2)
 
     # unpack the content read from the network into a short int
