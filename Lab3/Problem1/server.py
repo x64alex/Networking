@@ -6,7 +6,8 @@ if __name__ == '__main__':
     sfd.listen(256)
 
     while True:
-        sfd.accept()
-        response, addr = sfd.recvfrom(256)
-        print(response.decode())
+        response, addr = sfd.accept()
+        data = sfd.recvfrom(256)
+        print(data.decode())
         sfd.sendto(response, addr)
+

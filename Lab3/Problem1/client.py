@@ -8,7 +8,7 @@ if __name__ == '__main__':
     for i in range(4):
         sfd.send(b'ping')
         t1 = time.time()
-        response, addr = sfd.recv(256)
+        response, addr = sfd.recv(25)
         t2 = time.time()
         response = response.decode()
 
