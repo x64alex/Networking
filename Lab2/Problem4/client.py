@@ -2,7 +2,7 @@ import socket
 import random
 import time
 
-bind = ("0.0.0.0", 1219)
+bind = ("0.0.0.0", 1216)
 
 
 def create_string(n, array):

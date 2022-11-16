@@ -62,22 +62,26 @@ def create_string(n, array):
     return string
 
 def worker(cs):
-    global mylock, client_guessed, my_num, floats, client_count,e
+    global mylock, finished, my_num, floats, client_count, e
 
     data = cs.recv(10000).decode()
 
     if len(data.split('##integerNumberN##')) == 1:
         print("Done receiving")
-        string = create_string(len(floats), floats)
-        cs.send(string.encode())
-        e.set()
+        finished = True
     else:
         n, array = get_data(data)
         print(n, array)
         floats = merge(floats, array)
         print(floats)
 
+    while not finished:
+        time.sleep(1)
 
+    if finished:
+        string = create_string(len(floats), floats)
+        cs.send(string.encode())
+        e.set()
 
     time.sleep(1)
     cs.close()
@@ -97,7 +101,7 @@ def resetSrv():
         print('Server number: ', my_num)
         mylock.release()
 
-bind = ("0.0.0.0", 1219)
+bind = ("0.0.0.0", 1216)
 
 
 if __name__ == "__main__":
