@@ -1,7 +1,6 @@
 import socket
 import threading
 import random
-import struct
 import time
 
 random.seed()
@@ -14,7 +13,6 @@ client_guessed = False
 winner_thread = 0
 e = threading.Event()
 e.clear()
-threads = []
 incircle = 0
 outcircle = 0
 client_count = 0
@@ -28,7 +26,6 @@ def algorithm(x, y):
 def worker(cs):
     global mylock, incircle,outcircle, my_num, winner_thread, client_count,e
 
-    my_idcount=client_count
     print('client #',client_count,'from: ',cs.getpeername(), cs )
     message='Hello client #'+str(client_count)+' ! You are entering the number guess competion now !'
     cs.sendall(bytes(message,'ascii'))
@@ -55,18 +52,43 @@ def worker(cs):
             print('Error:', msg.strerror)
             break
 
+    cs.close()
+
+def worker2(sfd):
+    global incircle, outcircle
+    number = 3.14
+    while True:
+        mylock.acquire()
+        if outcircle != 0:
+            number = incircle / outcircle
+
+        mylock.release()
+        print(number)
+        sfd.sendto(str(number).encode(), ('127.0.0.1', 1503))
+        time.sleep(2)
+
+
 
 if __name__ == '__main__':
     try:
         rs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        rs.bind(('0.0.0.0', 1234))
+        rs.bind(('0.0.0.0', 1248))
         rs.listen()
+
+        sfd = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
     except socket.error as msg:
         print(msg.strerror)
         exit(-1)
     while True:
         client_socket, addrc = rs.accept()
         t = threading.Thread(target=worker, args=(client_socket,))
-        threads.append(t)
-        client_count += 1
         t.start()
+
+        t2 = threading.Thread(target=worker2, args=(sfd,))
+        t2.start()
+
+
+
+
+
